@@ -14,7 +14,13 @@
             client.onreadystatechange = function() {
                 if(client.readyState == 4){
                     document.getElementById('md-content').innerHTML = converter.makeHtml(client.responseText);
-                    tocbot.init({tocSelector: '#toc', contentSelector: '#md-content', headingSelector: 'h2, h3', orderedList: false});
+                    tocbot.init({
+                        tocSelector: '#toc',
+                        contentSelector: '#md-content',
+                        headingSelector: 'h2, h3',
+                        orderedList: false,
+                        ghCompatibleHeaderId: true;
+                    });
                 }
             }
             client.send();
