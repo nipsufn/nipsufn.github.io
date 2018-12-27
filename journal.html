@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Journal</title>
+        <meta charset="UTF-8">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+        <script>
+            var client = new XMLHttpRequest();
+            client.open('GET', 'https://raw.githubusercontent.com/nipsufn/dnd-ki/master/journal.md');
+            var converter = new showdown.Converter();
+            converter.setOption('tasklists', true);
+            client.onreadystatechange = function() {
+                if(client.readyState == 4){
+                    document.getElementById('md-content').innerHTML = converter.makeHtml(client.responseText);
+                    tocbot.init({tocSelector: '#toc', contentSelector: '#md-content', headingSelector: 'h2, h3', orderedList: false});
+                }
+            }
+            client.send();
+        </script>
+        <style>
+            body {
+                width:70%;
+                margin: 0 auto;
+            }
+            #md-content {
+                width: 70%;
+                float: left;
+            }
+            #toc {
+                width: 30%;
+                float: left;
+            }
+            .toc-list {
+                position: fixed;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='md-content'></div>
+        <div id="toc"></div>
+    </body>
+</html>
