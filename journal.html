@@ -11,11 +11,11 @@
             client.open('GET', 'https://raw.githubusercontent.com/nipsufn/dnd-ki/master/journal.md');
             var converter = new showdown.Converter();
             converter.setOption('tasklists', true);
+            converter.setOption('ghCompatibleHeaderId', true);
             client.onreadystatechange = function() {
                 if(client.readyState == 4){
                     document.getElementById('md-content').innerHTML = converter.makeHtml(client.responseText);
                     tocbot.init({
-                        rawHeaderId: true,
                         tocSelector: '#toc',
                         contentSelector: '#md-content',
                         headingSelector: 'h2, h3',
