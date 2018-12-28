@@ -17,10 +17,11 @@
                 if(client.readyState == 4){
                     document.getElementById('md-content').innerHTML = converter.makeHtml(client.responseText);
                     tocbot.init({
-                        tocSelector: '#toc',
+                        tocSelector: '#toc-container',
                         contentSelector: '#md-content',
                         headingSelector: 'h2, h3',
                         orderedList: false,
+                        collapseDepth: 6
                     });
                 }
             }
@@ -37,16 +38,24 @@
                 float: left;
             }
             #toc {
-                width: 30%;
+                width: 28%;
                 float: left;
+                margin-left: 2%;
             }
-            .toc-list {
+            #toc-container {
                 position: fixed;
+                border-left: 1px solid #eaecef
+            }
+            hr {
+                border-bottom: 1px solid #eaecef !important;
+                height: 0px !important;
             }
         </style>
     </head>
     <body>
         <div id='md-content' class="markdown-body"></div>
-        <div id="toc" class="markdown-body"></div>
+        <div id="toc" class="markdown-body">
+            <div id='toc-container'></div>
+        </div>
     </body>
 </html>
