@@ -4,6 +4,7 @@
     <head>
         <title>Journal</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
         <script>
@@ -29,6 +30,7 @@
             body {
                 width:70%;
                 margin: 0 auto;
+                margin-top: 1em;
             }
             #md-content {
                 width: 70%;
@@ -44,7 +46,7 @@
         </style>
     </head>
     <body>
-        <div id='md-content'></div>
-        <div id="toc"></div>
+        <div id='md-content' class="markdown-body"></div>
+        <div id="toc" class="markdown-body"></div>
     </body>
 </html>
