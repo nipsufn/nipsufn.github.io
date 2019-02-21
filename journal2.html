@@ -35,7 +35,7 @@
                     
                     document.getElementById('md-content').innerHTML = converter.makeHtml(fixLinks(content.responseText)+'<br /><br /><br /><br />');
                     try {
-                        document.getElementById(url.hash.substr(1)).scrollIntoView(true);
+                        document.getElementById(url.hash.substr(1)).scrollIntoView();
                     }
                     catch(error) {}
                 }
