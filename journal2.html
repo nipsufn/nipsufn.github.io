@@ -11,6 +11,17 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
         <script>
+            function fixLinks(text){
+                text = text.replace("#p_", "?md=postaci#p_");
+                text = text.replace("#l_", "?md=lokacje#l_");
+                text = text.replace("#o_", "?md=ogloszenia#o_");
+                text = text.replace("#b_", "?md=bestariusz#b_");
+                text = text.replace("#h_", "?md=heraldyka#h_");
+                text = text.replace("#z_", "?md=zadania#z_");
+                text = text.replace("#r_", "?md=rozne#r_");
+                text = text.replace("#sesja-", "?md=sesja-");
+                return text;
+            }
             var url = new URL(window.location.href);
             var converter = new showdown.Converter({
                 tasklists: true,
@@ -21,8 +32,8 @@
             content.open('GET', 'https://raw.githubusercontent.com/nipsufn/dnd-ki/multifile/'+ (url.searchParams.get("md") || 'toc') +'.md');
             content.onreadystatechange = function() {
                 if(content.readyState == 4){
-                    var text = content.responseText.replace("#p_", "?md=persons#p_");
-                    document.getElementById('md-content').innerHTML = converter.makeHtml(text);
+                    
+                    document.getElementById('md-content').innerHTML = converter.makeHtml(fixLinks(content.responseText);
                     try {
                         document.getElementById(url.hash.substr(1)).scrollIntoView(true);
                     }
@@ -35,8 +46,7 @@
                 toc.open('GET', 'https://raw.githubusercontent.com/nipsufn/dnd-ki/multifile/toc.md');
                 toc.onreadystatechange = function() {
                     if(toc.readyState == 4){
-                        var text = toc.responseText.replace("#p_", "?md=persons#p_");
-                        document.getElementById('toc-container').innerHTML = converter.makeHtml(text);
+                        document.getElementById('toc-container').innerHTML = converter.makeHtml(fixLinks(toc.responseText);
                     }
                 }
                 toc.send();
