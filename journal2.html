@@ -12,14 +12,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
         <script>
             function fixLinks(text){
-                text = text.replace("#p_", "?md=postaci#p_");
-                text = text.replace("#l_", "?md=lokacje#l_");
-                text = text.replace("#o_", "?md=ogloszenia#o_");
-                text = text.replace("#b_", "?md=bestariusz#b_");
-                text = text.replace("#h_", "?md=heraldyka#h_");
-                text = text.replace("#z_", "?md=zadania#z_");
-                text = text.replace("#r_", "?md=rozne#r_");
-                text = text.replace("#sesja-", "?md=sesja-");
+                text = text.replace(/#p_/g, "?md=postaci#p_");
+                text = text.replace(/#l_/g, "?md=lokacje#l_");
+                text = text.replace(/#o_/g, "?md=ogloszenia#o_");
+                text = text.replace(/#b_/g, "?md=bestariusz#b_");
+                text = text.replace(/#h_/g, "?md=heraldyka#h_");
+                text = text.replace(/#z_/g, "?md=zadania#z_");
+                text = text.replace(/#r_/g, "?md=rozne#r_");
+                text = text.replace(/#sesja-/g, "?md=sesja-");
                 return text;
             }
             var url = new URL(window.location.href);
@@ -33,7 +33,7 @@
             content.onreadystatechange = function() {
                 if(content.readyState == 4){
                     
-                    document.getElementById('md-content').innerHTML = converter.makeHtml(fixLinks(content.responseText);
+                    document.getElementById('md-content').innerHTML = converter.makeHtml(fixLinks(content.responseText)+'<br /><br /><br /><br />');
                     try {
                         document.getElementById(url.hash.substr(1)).scrollIntoView(true);
                     }
@@ -46,7 +46,7 @@
                 toc.open('GET', 'https://raw.githubusercontent.com/nipsufn/dnd-ki/multifile/toc.md');
                 toc.onreadystatechange = function() {
                     if(toc.readyState == 4){
-                        document.getElementById('toc-container').innerHTML = converter.makeHtml(fixLinks(toc.responseText);
+                        document.getElementById('toc-container').innerHTML = converter.makeHtml(fixLinks(toc.responseText));
                     }
                 }
                 toc.send();
@@ -69,7 +69,8 @@
             }
             #toc-container {
                 position: fixed;
-                border-left: 1px solid #eaecef
+                border-left: 1px solid #eaecef;
+                padding-left: 2%;
             }
             hr {
                 border-bottom: 1px solid #eaecef !important;
