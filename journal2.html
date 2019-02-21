@@ -10,81 +10,111 @@
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
-        <script>
-            function fixLinks(text){
-                text = text.replace(/#p_/g, "?md=postaci#p_");
-                text = text.replace(/#l_/g, "?md=lokacje#l_");
-                text = text.replace(/#o_/g, "?md=ogloszenia#o_");
-                text = text.replace(/#b_/g, "?md=bestariusz#b_");
-                text = text.replace(/#h_/g, "?md=heraldyka#h_");
-                text = text.replace(/#z_/g, "?md=zadania#z_");
-                text = text.replace(/#r_/g, "?md=rozne#r_");
-                text = text.replace(/#sesja-/g, "?md=sesja-");
-                return text;
-            }
-            var url = new URL(window.location.href);
-            var converter = new showdown.Converter({
-                tasklists: true,
-                ghCompatibleHeaderId: true,
-                simpleLineBreaks: true
-            });
-            var content = new XMLHttpRequest();
-            content.open('GET', 'https://raw.githubusercontent.com/nipsufn/dnd-ki/multifile/'+ (url.searchParams.get("md") || 'toc') +'.md');
-            content.onreadystatechange = function() {
-                if(content.readyState == 4){
-                    
-                    document.getElementById('md-content').innerHTML = converter.makeHtml(fixLinks(content.responseText)+'<br /><br /><br /><br />');
-                    try {
-                        document.getElementById(url.hash.substr(1)).scrollIntoView();
-                    }
-                    catch(error) {}
-                }
-            }
-            content.send();
-            if(url.searchParams.get("md")){
-                var toc = new XMLHttpRequest();
-                toc.open('GET', 'https://raw.githubusercontent.com/nipsufn/dnd-ki/multifile/toc.md');
-                toc.onreadystatechange = function() {
-                    if(toc.readyState == 4){
-                        document.getElementById('toc-container').innerHTML = converter.makeHtml(fixLinks(toc.responseText));
-                    }
-                }
-                toc.send();
-            }
-        </script>
         <style>
             body {
                 width:70%;
                 margin: 0 auto;
                 margin-top: 1em;
             }
-            #md-content {
+            #md-viewport {
                 width: 70%;
                 float: left;
             }
+            #md-content > #spis-treści + ul  > li > ul {
+                column-count: 4;
+            }
             #toc {
-                width: 28%;
+                width: 29%;
                 float: left;
-                margin-left: 2%;
+                margin-left: 1%;
             }
             #toc-container {
                 position: fixed;
                 border-left: 1px solid #eaecef;
-                padding-left: 2%;
+                padding-left: 1%;
+                width: 20.3%;
+                height: 98%;
+            }
+            #toc-container > ul > li > ul {
+                column-count: 2;
             }
             hr {
                 border-bottom: 1px solid #eaecef !important;
                 height: 0px !important;
             }
-            .markdown-body {
-                font-family: sans-serif;
-            }
         </style>
     </head>
     <body>
-        <div id='md-content' class="markdown-body"></div>
+        <div id='md-viewport'>
+            <div id='md-header' class="markdown-body"></div>
+            <div id='md-content' class="markdown-body"></div>
+        </div>
         <div id="toc" class="markdown-body">
             <div id='toc-container'></div>
         </div>
     </body>
+    <script>
+        function fixLinks(text){
+            text = text.replace(/#p_/g, "?md=postaci#p_");
+            text = text.replace(/#l_/g, "?md=lokacje#l_");
+            text = text.replace(/#o_/g, "?md=ogloszenia#o_");
+            text = text.replace(/#b_/g, "?md=bestariusz#b_");
+            text = text.replace(/#h_/g, "?md=heraldyka#h_");
+            text = text.replace(/#z_/g, "?md=zadania#z_");
+            text = text.replace(/#r_/g, "?md=rozne#r_");
+            text = text.replace(/#sesja-/g, "?md=sesja-");
+            text = text.replace(/✝/g, "<span style='font-family: sans-serif;'>✝</span>");
+            text += '<br /><br /><br /><br />'
+            return text;
+        }
+        function loadMarkdown(sourceUrl, targetId, converter = new showdown.Converter(), scrollToAnchor = false){
+            var content = new XMLHttpRequest();
+            content.open('GET', sourceUrl);
+            content.onreadystatechange = function() {
+                if(content.readyState == 4){
+                    
+                    document.getElementById(targetId).innerHTML = converter.makeHtml(fixLinks(content.responseText));
+                    if(converter){
+                        try {
+                            document.getElementById(url.hash.substr(1)).scrollIntoView();
+                        }
+                        catch(error) {}
+                    }
+                }
+            }
+            content.send();
+        }
+        var url = new URL(window.location.href);
+        var converter = new showdown.Converter({
+            tasklists: true,
+            ghCompatibleHeaderId: true,
+            simpleLineBreaks: true
+        });
+        var baseUrl = 'https://raw.githubusercontent.com/nipsufn/dnd-ki/';
+        var branch = 'multifile';
+
+        loadMarkdown(
+            baseUrl + branch + '/header.md',
+            'md-header',
+            converter,
+            true
+        );
+        loadMarkdown(
+            baseUrl + branch + '/' + (url.searchParams.get("md") || 'toc') + '.md',
+            'md-content',
+            converter,
+            true
+        );
+        if(url.searchParams.get("md")){
+            loadMarkdown(
+                baseUrl + branch + '/toc.md',
+                'toc-container',
+                converter
+            );
+        }
+        else{
+            document.getElementById("toc").outerHTML = "";
+            document.getElementById("md-viewport").style.width = "100%";
+        }
+    </script>
 </html>
