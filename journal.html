@@ -77,7 +77,7 @@
                 if(content.readyState == 4){
                     
                     document.getElementById(targetId).innerHTML = converterObj.makeHtml(fixLinks(content.responseText, bold));
-                    if(scrollToAnchor){
+                    if(scrollToAnchor && url.hash.substr(1)){
                         try {
                             document.getElementById(url.hash.substr(1)).scrollIntoView();
                         }
@@ -97,22 +97,23 @@
         var branch = 'master';
 
         loadMarkdown(
-            sourceUrl      = baseUrl + branch + '/header.md',
-            targetId       = 'md-header',
-            converterObj   = converter
+            baseUrl + branch + '/header.md',
+            'md-header',
+            converter
         );
         loadMarkdown(
-            sourceUrl      = baseUrl + branch + '/' + (url.searchParams.get("md") || 'toc') + '.md',
-            targetId       = 'md-content',
-            converterObj   = converter,
-            scrollToAnchor = true
+            baseUrl + branch + '/' + (url.searchParams.get("md") || 'toc') + '.md',
+            'md-content',
+            converter,
+            true
         );
         if(url.searchParams.get("md")){
             loadMarkdown(
-                sourceUrl      = baseUrl + branch + '/toc.md',
-                targetId       = 'toc-container',
-                converterObj   = converter,
-                bold           = url.searchParams.get("md")
+                baseUrl + branch + '/toc.md',
+                'toc-container',
+                converter,
+                false,
+                url.searchParams.get("md")
             );
         }
         else{
