@@ -65,7 +65,7 @@
             text = text.replace(/#sesja-/g, "?md=sesja-");
             text = text.replace(/✝/g, "<span style='font-family: sans-serif;'>✝</span>");
             if(bold){
-                var boldRegex = new RegExp("(\\[[^\\[]+?\\]\\(\\?md=" + bold + "\\))");
+                var boldRegex = new RegExp("(\\[[^\\[]+?\\]\\(\\?md=" + bold + ".*?\\))", "g");
                 text = text.replace(boldRegex, "**$1**");
             }
             text += '<br /><br /><br /><br />'
