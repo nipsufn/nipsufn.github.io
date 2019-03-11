@@ -46,10 +46,14 @@
             @media screen and (max-width: 960px) {
                 body {
                     width: 96%;
-                    font-size: 50%;
+                    font-size-adjust: 0.3;
                 }
                 #toc-container {
                     width: 27.3%;
+                }
+                #toc-container > ul > li > ul {
+                    column-count: 1;
+                    padding-left: 0.2em;
                 }
             }
         </style>
