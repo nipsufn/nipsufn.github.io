@@ -54,7 +54,7 @@
         </div>
     </body>
     <script>
-        function fixLinks(text, bold){
+        function fixLinks(text, bold = null){
             text = text.replace(/#p_/g, "?md=postaci#p_");
             text = text.replace(/#l_/g, "?md=lokacje#l_");
             text = text.replace(/#o_/g, "?md=ogloszenia#o_");
@@ -65,22 +65,22 @@
             text = text.replace(/#sesja-/g, "?md=sesja-");
             text = text.replace(/✝/g, "<span style='font-family: sans-serif;'>✝</span>");
             if(bold){
-                var boldRegex = new RegExp("(\\[[^\\[]+?\\]\\(\\?md=" + bold + ".*?\\))", "g");
+                var boldRegex = new RegExp("(\\[([^\\[]+?)\\]\\(\\?md=" + bold + ".*?\\))", "g");
+                document.title = "Journal: " + boldRegex.exec(text)[2];
                 text = text.replace(boldRegex, "**$1**");
             }
             text += '<br /><br /><br /><br />'
             return text;
         }
-        function loadMarkdown(sourceUrl, targetId, converterObj = new showdown.Converter(), scrollToAnchor = false, bold = null){
+        function loadMarkdown(sourceUrl, targetId, converterObj = new showdown.Converter(), scrollToAnchor = null, bold = null){
             var content = new XMLHttpRequest();
             content.open('GET', sourceUrl);
             content.onreadystatechange = function() {
                 if(content.readyState == 4){
-                    
                     document.getElementById(targetId).innerHTML = converterObj.makeHtml(fixLinks(content.responseText, bold));
-                    if(scrollToAnchor && url.hash.substr(1)){
+                    if(scrollToAnchor){
                         try {
-                            document.getElementById(url.hash.substr(1)).scrollIntoView();
+                            document.getElementById(scrollToAnchor).scrollIntoView();
                         }
                         catch(error) {}
                     }
@@ -106,14 +106,14 @@
             baseUrl + branch + '/' + (url.searchParams.get("md") || 'toc') + '.md',
             'md-content',
             converter,
-            true
+            url.hash.substr(1)
         );
         if(url.searchParams.get("md")){
             loadMarkdown(
                 baseUrl + branch + '/toc.md',
                 'toc-container',
                 converter,
-                false,
+                null,
                 url.searchParams.get("md")
             );
         }
