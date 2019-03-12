@@ -22,7 +22,7 @@
                 margin: 0 auto;
             }
             #md-viewport {
-                width: 70%;
+                width: 75%;
                 padding-top: 1em;
                 padding-right: 1em;
                 border-right: 1px solid #eaecef;
@@ -33,7 +33,7 @@
             #toc-container {
                 position: sticky;
                 top: 0;
-                width: 30%;
+                width: 25%;
                 height: 100%;
                 padding-top: 1em;
                 padding-left: 1em;
@@ -45,6 +45,14 @@
             @media (max-width: 960px) {
                 body {
                     width: 150%;
+                    font-size-adjust: 0.5;
+                }
+                #root{
+                    width: 96%;
+                }
+                ul,
+                ol {
+                    padding-left: 0.5em;
                 }
                 #toc-container > ul > li > ul {
                     column-count: 1;
