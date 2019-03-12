@@ -13,65 +13,52 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
         <style>
             body {
+                margin: 0;
+            }
+            #root {
+                display: flex;
+                flex-direction: row;
                 width: 70%;
                 margin: 0 auto;
-                margin-top: 1em;
             }
             #md-viewport {
                 width: 70%;
-                float: left;
+                padding-top: 1em;
+                padding-right: 1em;
+                border-right: 1px solid #eaecef;
             }
             #md-content > #spis-treści + ul  > li > ul {
                 column-count: 4;
             }
-            #toc {
-                width: 29%;
-                float: left;
-                margin-left: 1%;
-            }
             #toc-container {
-                position: fixed;
-                border-left: 1px solid #eaecef;
-                padding-left: 1%;
-                width: 20.3%;
-                height: 98%;
+                position: sticky;
+                top: 0;
+                width: 30%;
+                height: 100%;
+                padding-top: 1em;
+                padding-left: 1em;
+                overflow: auto;
             }
             #toc-container > ul > li > ul {
                 column-count: 2;
             }
-            hr {
-                border-bottom: 1px solid #eaecef !important;
-                height: 0px !important;
-            }
             @media (max-width: 960px) {
                 body {
                     width: 150%;
-                    font-size-adjust: 0.5;
-                }
-                #toc {
-                    width: 49%
-                }
-                #toc-container {
-                    width: 50%;
-                }
-                ul,
-                ol {
-                    padding-left: 1em !important;
                 }
                 #toc-container > ul > li > ul {
                     column-count: 1;
-                    padding-left: 0.2em !important;
                 }
             }
         </style>
     </head>
     <body>
-        <div id='md-viewport'>
-            <div id='md-header' class="markdown-body"></div>
-            <div id='md-content' class="markdown-body"></div>
-        </div>
-        <div id="toc" class="markdown-body">
-            <div id='toc-container'></div>
+        <div id='root'>
+            <div id='md-viewport'>
+                <div id='md-header' class="markdown-body"></div>
+                <div id='md-content' class="markdown-body"></div>
+            </div>
+            <div id='toc-container' class="markdown-body"></div>
         </div>
     </body>
     <script>
@@ -139,8 +126,9 @@
             );
         }
         else{
-            document.getElementById("toc").outerHTML = "";
+            document.getElementById("toc-container").outerHTML = "";
             document.getElementById("md-viewport").style.width = "100%";
+            document.getElementById("md-viewport").style.border = "none";
         }
     </script>
 </html>
