@@ -34,7 +34,7 @@
                 position: sticky;
                 top: 0;
                 width: 25%;
-                height: 100%;
+                height: 100vh;
                 padding-top: 1em;
                 padding-left: 1em;
                 overflow: auto;
@@ -45,14 +45,13 @@
             @media (max-width: 960px) {
                 body {
                     width: 133%;
-                    font-size-adjust: 0.5;
                 }
                 #root{
                     width: 96%;
                 }
-
                 ul,
                 ol {
+                    list-style-position: inside;
                     padding-left: 0.5em !important;
                 }
                 #toc-container > ul > li > ul {
