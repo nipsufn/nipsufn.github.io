@@ -8,7 +8,7 @@
         <meta http-equiv="Pragma" content="no-cache" />
         <meta http-equiv="Expires" content="-1" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
         <style>
             body {
@@ -28,6 +28,12 @@
             }
             #md-content > #spis-treści + ul  > li > ul {
                 column-count: 4;
+            }
+            #md-content > h5 > a {
+                display: inline-block;
+            }
+            #md-content > h5 > a ~ a:nth-child(2) {
+                float: right;
             }
             #toc-container {
                 position: sticky;
