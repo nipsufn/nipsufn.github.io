@@ -133,14 +133,14 @@
             converter
         );
         loadMarkdown(
-            baseUrl + branch + '/' + (url.searchParams.get("md") || 'toc') + '.md',
+            baseUrl + branch + path + '/' + (url.searchParams.get("md") || 'toc') + '.md',
             'md-content',
             converter,
             url.hash.substr(1)
         );
         if(url.searchParams.get("md")){
             loadMarkdown(
-                baseUrl + branch + '/toc.md',
+                baseUrl + branch + path + '/toc.md',
                 'toc-container',
                 converter,
                 null,
