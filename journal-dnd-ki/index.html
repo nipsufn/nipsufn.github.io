@@ -9,7 +9,7 @@
         <meta http-equiv="Expires" content="-1" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-light.min.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
         <style>
             body {
                 margin: 0;
@@ -124,10 +124,11 @@
             tables: true
         });
         var baseUrl = 'https://raw.githubusercontent.com/nipsufn/dnd-ki/';
-        var branch = 'master';
+        var branch = 'parsed';
+        var path = '/parsed';
 
         loadMarkdown(
-            baseUrl + branch + '/header.md',
+            baseUrl + branch + path + '/header.md',
             'md-header',
             converter
         );
