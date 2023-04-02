@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title id="title"></title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        img {
+            object-fit: contain;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <img id="image" />
+</body>
+
+<script>
+    const url = new URL(window.location.href);
+    document.title = url.searchParams.get('title')
+    const img = document.getElementById("image")
+    img.setAttribute("src", url.searchParams.get('image'));
+    img.setAttribute("alt", url.searchParams.get('title'));
+</script>
+
+</html>
