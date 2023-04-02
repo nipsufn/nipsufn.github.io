@@ -1,161 +1,177 @@
-
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Journal</title>
-        <meta charset="UTF-8">
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=1" />
-        <meta http-equiv="Pragma" content="no-cache" />
-        <meta http-equiv="Expires" content="-1" />
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
-        <style>
-            img[src$="block-center"] {
-                display: block;
-                margin: 0 auto;
-            }
-            body {
-                margin: 0;
-            }
-            #root {
-                display: flex;
-                flex-direction: row;
-                width: 70%;
-                margin: 0 auto;
-            }
-            #md-viewport {
-                width: 75%;
-                padding-top: 1em;
-                padding-right: 1em;
-                border-right: 1px solid #eaecef;
-            }
-            #md-content > #spis-treści + ul  > li > ul {
-                column-count: 4;
-            }
-            #md-content > h5 > a {
-                display: inline-block;
-            }
-            #md-content > h5 > a:first-child {
-                padding-left: 1em;
-            }
-            #md-content > h5 > a:nth-child(2) {
-                float: right;
-                padding-right: 1em;
-            }
-            #toc-container {
-                position: sticky;
-                top: 0;
-                width: 25%;
-                height: 100vh;
-                padding-top: 1em;
-                padding-left: 1em;
-                overflow: auto;
-            }
-            #toc-container > ul > li > ul {
-                column-count: 2;
-            }
-            @media (max-width: 960px) {
-                body {
-                    width: 133%;
-                }
-                #root{
-                    width: 96%;
-                }
-                ul,
-                ol {
-                    list-style-position: inside;
-                    padding-left: 0.5em !important;
-                }
-                #toc-container > ul > li > ul {
-                    column-count: 1;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div id='root'>
-            <div id='md-viewport'>
-                <div id='md-header' class="markdown-body"></div>
-                <div id='md-content' class="markdown-body"></div>
-            </div>
-            <div id='toc-container' class="markdown-body"></div>
-        </div>
-    </body>
-    <script>
-        function fixLinks(text, bold = null){
-            text = text.replace(/#p_/g, "?md=postaci#p_");
-            text = text.replace(/#g_/g, "?md=postaci-graczy#g_");
-            text = text.replace(/#k_/g, "?md=postaci-kluczowe#k_");
-            text = text.replace(/#l_/g, "?md=lokacje#l_");
-            text = text.replace(/#o_/g, "?md=ogloszenia#o_");
-            text = text.replace(/#b_/g, "?md=bestariusz#b_");
-            text = text.replace(/#m_/g, "?md=mapy#m_");
-            text = text.replace(/#h_/g, "?md=heraldyka#h_");
-            text = text.replace(/#z_/g, "?md=zadania#z_");
-            text = text.replace(/#r_/g, "?md=rozne#r_");
-            text = text.replace(/#sesja-/g, "?md=sesja-");
-            text = text.replace(/✝/g, "<img src='u271d.svg' style='height: 1.5ex;' />");
-            if(bold){
-                var boldRegex = new RegExp("(\\[([^\\[]+?)\\]\\(\\?md=" + bold + ".*?\\))", "g");
-                document.title = "Journal: " + boldRegex.exec(text)[2];
-                text = text.replace(boldRegex, "**$1**");
-            }
-            text += '<br /><br /><br /><br />'
-            return text;
-        }
-        function loadMarkdown(sourceUrl, targetId, converterObj = new showdown.Converter(), scrollToAnchor = null, bold = null){
-            var content = new XMLHttpRequest();
-            content.open('GET', sourceUrl);
-            content.onreadystatechange = function() {
-                if(content.readyState == 4){
-                    document.getElementById(targetId).innerHTML = converterObj.makeHtml(fixLinks(content.responseText, bold));
-                    if(scrollToAnchor){
-                        try {
-                            document.getElementById(scrollToAnchor).scrollIntoView();
-                        }
-                        catch(error) {}
-                    }
-                }
-            }
-            content.send();
-        }
-        var url = new URL(window.location.href);
-        var converter = new showdown.Converter({
-            tasklists: true,
-            ghCompatibleHeaderId: true,
-            simpleLineBreaks: true,
-            strikethrough: true,
-            tables: true
-        });
-        var baseUrl = 'https://raw.githubusercontent.com/nipsufn/dnd-ki/';
-        var branch = 'parsed';
-        var path = '/parsed';
 
+<head>
+    <title>Journal</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=1" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+    <style>
+        img[src$="block-center"] {
+            display: block;
+            margin: 0 auto;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        #root {
+            display: flex;
+            flex-direction: row;
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        #md-viewport {
+            width: 75%;
+            padding-top: 1em;
+            padding-right: 1em;
+            border-right: 1px solid #eaecef;
+        }
+
+        #md-content>#spis-treści+ul>li>ul {
+            column-count: 4;
+        }
+
+        #md-content>h5>a {
+            display: inline-block;
+        }
+
+        #md-content>h5>a:first-child {
+            padding-left: 1em;
+        }
+
+        #md-content>h5>a:nth-child(2) {
+            float: right;
+            padding-right: 1em;
+        }
+
+        #toc-container {
+            position: sticky;
+            top: 0;
+            width: 25%;
+            height: 100vh;
+            padding-top: 1em;
+            padding-left: 1em;
+            overflow: auto;
+        }
+
+        #toc-container>ul>li>ul {
+            column-count: 2;
+        }
+
+        @media (max-width: 960px) {
+            body {
+                width: 133%;
+            }
+
+            #root {
+                width: 96%;
+            }
+
+            ul,
+            ol {
+                list-style-position: inside;
+                padding-left: 0.5em !important;
+            }
+
+            #toc-container>ul>li>ul {
+                column-count: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id='root'>
+        <div id='md-viewport'>
+            <div id='md-header' class="markdown-body"></div>
+            <div id='md-content' class="markdown-body"></div>
+        </div>
+        <div id='toc-container' class="markdown-body"></div>
+    </div>
+</body>
+<script>
+    function fixLinks(text, bold = null) {
+        text = text.replace(/#p_/g, "?md=postaci#p_");
+        text = text.replace(/#g_/g, "?md=postaci-graczy#g_");
+        text = text.replace(/#k_/g, "?md=postaci-kluczowe#k_");
+        text = text.replace(/#l_/g, "?md=lokacje#l_");
+        text = text.replace(/#o_/g, "?md=ogloszenia#o_");
+        text = text.replace(/#b_/g, "?md=bestariusz#b_");
+        text = text.replace(/#m_/g, "?md=mapy#m_");
+        text = text.replace(/#h_/g, "?md=heraldyka#h_");
+        text = text.replace(/#z_/g, "?md=zadania#z_");
+        text = text.replace(/#r_/g, "?md=rozne#r_");
+        text = text.replace(/#sesja-/g, "?md=sesja-");
+        text = text.replace(/✝/g, "<img src='u271d.svg' style='height: 1.5ex;' />");
+        if (bold) {
+            var boldRegex = new RegExp("(\\[([^\\[]+?)\\]\\(\\?md=" + bold + ".*?\\))", "g");
+            document.title = "Journal: " + boldRegex.exec(text)[2];
+            text = text.replace(boldRegex, "**$1**");
+        }
+        text += '<br /><br /><br /><br />'
+        return text;
+    }
+    function loadMarkdown(sourceUrl, targetId, converterObj = new showdown.Converter(), scrollToAnchor = null, bold = null) {
+        var content = new XMLHttpRequest();
+        content.open('GET', sourceUrl);
+        content.onreadystatechange = function () {
+            if (content.readyState == 4) {
+                document.getElementById(targetId).innerHTML = converterObj.makeHtml(fixLinks(content.responseText, bold));
+                if (scrollToAnchor) {
+                    try {
+                        document.getElementById(scrollToAnchor).scrollIntoView();
+                    }
+                    catch (error) { }
+                }
+            }
+        }
+        content.send();
+    }
+    var url = new URL(window.location.href);
+    var converter = new showdown.Converter({
+        tasklists: true,
+        ghCompatibleHeaderId: true,
+        simpleLineBreaks: true,
+        strikethrough: true,
+        tables: true
+    });
+    var baseUrl = 'https://raw.githubusercontent.com/nipsufn/dnd-ki/';
+    var branch = 'parsed';
+    var path = '/parsed';
+
+    loadMarkdown(
+        baseUrl + branch + path + '/header.md',
+        'md-header',
+        converter
+    );
+    loadMarkdown(
+        baseUrl + branch + path + '/' + (url.searchParams.get("md") || 'toc') + '.md',
+        'md-content',
+        converter,
+        url.hash.substr(1)
+    );
+    if (url.searchParams.get("md")) {
         loadMarkdown(
-            baseUrl + branch + path + '/header.md',
-            'md-header',
-            converter
-        );
-        loadMarkdown(
-            baseUrl + branch + path + '/' + (url.searchParams.get("md") || 'toc') + '.md',
-            'md-content',
+            baseUrl + branch + path + '/toc.md',
+            'toc-container',
             converter,
-            url.hash.substr(1)
+            null,
+            url.searchParams.get("md")
         );
-        if(url.searchParams.get("md")){
-            loadMarkdown(
-                baseUrl + branch + path + '/toc.md',
-                'toc-container',
-                converter,
-                null,
-                url.searchParams.get("md")
-            );
-        }
-        else{
-            document.getElementById("toc-container").outerHTML = "";
-            document.getElementById("md-viewport").style.width = "100%";
-            document.getElementById("md-viewport").style.border = "none";
-        }
-    </script>
+    }
+    else {
+        document.getElementById("toc-container").outerHTML = "";
+        document.getElementById("md-viewport").style.width = "100%";
+        document.getElementById("md-viewport").style.border = "none";
+    }
+</script>
+
 </html>
