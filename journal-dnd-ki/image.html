@@ -10,7 +10,6 @@
 
         img {
             object-fit: contain;
-            width: 100%;
         }
     </style>
 </head>
@@ -25,6 +24,9 @@
     const img = document.getElementById("image")
     img.setAttribute("src", url.searchParams.get('image'));
     img.setAttribute("alt", url.searchParams.get('title'));
+    const style = document.createElement('style');
+    document.head.appendChild(style);
+    style.sheet.insertRule('img {width: '+window.innerWidth+'px;}');
 </script>
 
 </html>
