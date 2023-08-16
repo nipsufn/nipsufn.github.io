@@ -100,10 +100,12 @@
             const errorNode = gpxSrcDoc.querySelector("parsererror");
             if (errorNode) {
                 alert("GPX malformed!" + errorNode)
+                return;
             }
             let gpxSrc = gpxSrcDoc.getElementsByTagName("gpx");
             if (gpxSrc.length != 1) {
                 alert("GPX malformed! Multiple gpx tags.");
+                return;
             }
 
             let trkSrcNodes = gpxSrc[0].getElementsByTagName("trk");
