@@ -99,7 +99,7 @@
             let gpxSrcDoc = (new DOMParser()).parseFromString(e.target.result, "application/xml");
             const errorNode = gpxSrcDoc.querySelector("parsererror");
             if (errorNode) {
-                alert("GPX malformed!" + errorNode)
+                alert("GPX malformed!\n" + errorNode.childNodes[0].textContent + "\n" + errorNode.childNodes[1].textContent)
                 return;
             }
             let gpxSrc = gpxSrcDoc.getElementsByTagName("gpx");
