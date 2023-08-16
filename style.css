@@ -1,0 +1,124 @@
+@font-face {
+    font-family: Liberation Mono;
+    src: url("LiberationMono-Regular.woff2") format("woff2"), url("LiberationMono-Regular.ttf") format("truetype");
+}
+
+html {
+    height: 100vh;
+}
+
+body {
+    color: #93a1a1;
+    background-color: #002b36;
+    font-family: Liberation Mono, SFMono-Regular, Consolas, Menlo, Courier, monospace;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+}
+
+fieldset {
+    flex-grow: 1;
+    margin: 1em;
+    border-color: #586e75;
+    border-width: medium;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    flex-grow: 1;
+}
+
+legend {
+    margin: 0 auto;
+    padding: 0 1em 0 1em;
+    color: #93a1a1;
+    font-weight: bold;
+}
+
+#pi {
+    color: #93a1a1;
+    text-decoration: none;
+    position: absolute;
+    right: 0.4em;
+    bottom: 0px;
+}
+
+a:link {
+    color: #268bd2;
+}
+
+a:hover {
+    color: #2aa198;
+}
+
+a:visited {
+    color: #6c71c4;
+}
+
+input[type=text],
+input[type=number] {
+    border-color: #eee8d5;
+    background-color: #fdf6e3;
+    color: #586e75;
+    border-style: solid;
+    font-family: inherit;
+    margin: 0.1em 0 0.1em 0;
+}
+
+input[type="file"] {
+    color: #93a1a1;
+    font-family: Liberation Mono, SFMono-Regular, Consolas, Menlo, Courier, monospace;
+    font-size: initial;
+}
+
+input[type="file"]::file-selector-button {
+    border: 0;
+    padding: 0;
+    color: #268bd2;
+    text-decoration: underline;
+    background-color: inherit;
+    font-family: Liberation Mono, SFMono-Regular, Consolas, Menlo, Courier, monospace;
+    font-size: initial;
+}
+
+input[type="file"]::file-selector-button:hover {
+    border: 0;
+    padding: 0;
+    color: #2aa198;
+    text-decoration: underline;
+    background-color: inherit;
+    font-family: Liberation Mono, SFMono-Regular, Consolas, Menlo, Courier, monospace;
+    font-size: initial;
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+td:first-child {
+    text-align: right;
+    border-right-color: #586e75;
+    border-right-width: medium;
+    border-right-style: solid;
+    padding-right: 1em;
+}
+
+td:last-child {
+    text-align: left;
+    padding-left: 1em;
+}
+
+tr {
+    border-bottom-color: #586e75;
+    border-bottom-width: thin;
+    border-bottom-style: solid;
+}
+
+tr:last-child {
+    border: none;
+}
