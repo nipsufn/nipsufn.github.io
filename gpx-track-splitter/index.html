@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <td><label for="trkSuffix">Suffix appended to split tracks</label></td>
-                    <td><input id="trkSuffix" type="text" value="-part-" required /></td>
+                    <td><input id="trkSuffix" type="text" value="-P" required /></td>
                 </tr>
                 <tr>
                     <td><label for="fileSuffix">Suffix appended to filename</label></td>
@@ -137,8 +137,8 @@
                             for (let tbr of tmpTrkDstNode.getElementsByTagName("trkseg")) {
                                 tbr.remove();
                             }
-                            tmpTrkDstNode.getElementsByTagName("name")[0].textContent += trkSuffix + i;
-                            tmpTrkDstNode.getElementsByTagName("desc")[0].textContent += trkSuffix + i;
+                            tmpTrkDstNode.getElementsByTagName("name")[0].textContent += trkSuffix + String(i).padStart(2, '0');
+                            tmpTrkDstNode.getElementsByTagName("desc")[0].textContent += trkSuffix + String(i).padStart(2, '0');
                             tmpTrkDstNode.appendChild(tmpTrksegNode);
                             trkDstNodes.push(tmpTrkDstNode)
                         }
