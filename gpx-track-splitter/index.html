@@ -138,7 +138,9 @@
                                 tbr.remove();
                             }
                             tmpTrkDstNode.getElementsByTagName("name")[0].textContent += trkSuffix + String(i).padStart(2, '0');
-                            tmpTrkDstNode.getElementsByTagName("desc")[0].textContent += trkSuffix + String(i).padStart(2, '0');
+                            if (tmpTrkDstNode.getElementsByTagName("desc").length != 0) {
+                                tmpTrkDstNode.getElementsByTagName("desc")[0].textContent += trkSuffix + String(i).padStart(2, '0');
+                            }
                             tmpTrkDstNode.appendChild(tmpTrksegNode);
                             trkDstNodes.push(tmpTrkDstNode)
                         }
