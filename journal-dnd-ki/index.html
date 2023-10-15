@@ -47,6 +47,10 @@
             padding-left: 1em;
         }
 
+        #md-content>:not(blockquote)>p {
+            display: inline !important; /* blockquote bug workaround */
+        }
+
         #md-content>h5>a:nth-child(2) {
             float: right;
             padding-right: 1em;
