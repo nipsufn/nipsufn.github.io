@@ -25,7 +25,11 @@
                     <td><input id="splitSegOnly" type="checkbox" /></td>
                 </tr>
                 <tr>
-                    <td><label for="splitAt">Point count in each track/segment</label></td>
+                    <td><label for="splitCountEq">Make split tracks have an equal point count</label></td>
+                    <td><input id="splitCountEq" type="checkbox" checked /></td>
+                </tr>
+                <tr>
+                    <td><label for="splitAt">Maximum point count in each track/segment</label></td>
                     <td><input id="splitAt" type="number" min="10" max="1000" value="500" required /></td>
                 </tr>
                 <tr>
@@ -83,6 +87,8 @@
         // params
         // keep tracks as is, split segments
         let splitSegOnly = document.querySelector("#splitSegOnly").checked;
+        // split into equal segments
+        let splitCountEq = document.querySelector("#splitCountEq").checked;
         // split count
         let splitAt = document.querySelector("#splitAt").value;
         // keep common point
@@ -114,7 +120,12 @@
                 let trksegNodes = [];
                 for (let trksegNode of trkNode.getElementsByTagName("trkseg")) {
                     let trkptNodes = trksegNode.getElementsByTagName("trkpt");
-                    for (let i = 0; i < trkptNodes.length / splitAt; i++) {
+                    let segmentCount = Math.ceil(trkptNodes.length / splitAt);
+                    let trkptLimit = splitAt;
+                    if (splitCountEq) {
+                        trkptLimit = Math.ceil(trkptNodes.length / segmentCount);
+                    }
+                    for (let i = 0; i < segmentCount; i++) {
                         console.log(i)
                         let tmpTrksegNode = trksegNode.cloneNode(true);
                         let tmpTrkptNodes = tmpTrksegNode.getElementsByTagName("trkpt");
@@ -123,12 +134,12 @@
                             tmpTrkptNodes[0].remove();
                         }
                         let j = 0;
-                        for (; j < splitAt && (i * splitAt) + j < trkptNodes.length; j++) {
-                            tmpTrksegNode.appendChild(trkptNodes[(i * splitAt) + j].cloneNode(true))
+                        for (; j < trkptLimit && (i * trkptLimit) + j < trkptNodes.length; j++) {
+                            tmpTrksegNode.appendChild(trkptNodes[(i * trkptLimit) + j].cloneNode(true))
                         }
                         // no need to add 1 since j is post-incremented
-                        if (keepCommonPt && (i * splitAt) + j < trkptNodes.length) {
-                            tmpTrksegNode.appendChild(trkptNodes[(i * splitAt) + j].cloneNode(true))
+                        if (keepCommonPt && (i * trkptLimit) + j < trkptNodes.length) {
+                            tmpTrksegNode.appendChild(trkptNodes[(i * trkptLimit) + j].cloneNode(true))
                         }
                         if (splitSegOnly) {
                             trksegNodes.push(tmpTrksegNode)
