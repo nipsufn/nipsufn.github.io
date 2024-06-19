@@ -1,5 +1,5 @@
 const VERSION = "v1.2";
-const CACHE_NAME = `period-tracker-${VERSION}`;
+const CACHE_NAME = `gpx-track-splitter-${VERSION}`;
 
 const APP_STATIC_RESOURCES = [
   "/",
@@ -38,7 +38,7 @@ self.addEventListener("fetch", (event) => {
   // when seeking an HTML page
   if (event.request.mode === "navigate") {
     // Return to the index.html page
-    event.respondWith(caches.match("/"));
+    event.respondWith(caches.match("/index.html"));
     return;
   }
 
