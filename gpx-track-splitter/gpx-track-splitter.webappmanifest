@@ -1,0 +1,24 @@
+{
+  "name": "GPX track splitter",
+  "short_name": "GPX track splitter",
+  "start_url": "/",
+  "theme_color": "#eeffee",
+  "background_color": "#eeffee",
+  "display": "fullscreen",
+  "icons": [
+        {
+      "src": "favicon.ico",
+      "sizes": "48x48"
+    }
+  ],
+  "share_target":
+  {
+    "action": "/",
+    "params":
+    {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
