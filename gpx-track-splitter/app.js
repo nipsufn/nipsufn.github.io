@@ -176,3 +176,7 @@ if ("serviceWorker" in navigator) {
 document
   .getElementById("file")
   .addEventListener("change", handleFileSelect, false);
+
+//debug Android intent input
+var parsedUrl = new URL(window.location.toString());
+console.log('Debug input: ' + parsedUrl.toJSON());
